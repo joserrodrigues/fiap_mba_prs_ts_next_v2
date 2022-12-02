@@ -1,0 +1,9 @@
+.container {
+    margin-top: 150px;
+}
+
+.text {
+    color: #ed145b;
+    cursor: pointer;
+    text-align: center;
+}

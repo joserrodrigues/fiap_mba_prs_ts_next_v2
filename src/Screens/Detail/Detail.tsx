@@ -2,13 +2,18 @@ import React from "react";
 import styles from "./Detail.module.css";
 import { Grid, Typography } from "@mui/material";
 import { useRouter } from "next/router";
+import { UserInfo } from "../../Interfaces/UserInfo";
 
 export type DetailControllerType = {
   id?: string;
   data: string;
 };
 
-export default function Detail() {
+type iProps = {
+  userInfo: UserInfo;
+};
+
+export default function Detail({ userInfo }: iProps) {
   const router = useRouter();
   const info: DetailControllerType = router.query as DetailControllerType;
 
@@ -29,6 +34,24 @@ export default function Detail() {
     );
   }
 
+    let userInfoJSX = null;
+    if (userInfo != null) {
+      userInfoJSX = (
+        <>
+          <Typography gutterBottom variant="h4" className={styles.text}>
+            ID = {userInfo.id}
+          </Typography>
+          <Typography gutterBottom variant="h4" className={styles.text}>
+            Nome = {userInfo.name}
+          </Typography>
+          <Typography gutterBottom variant="h4" className={styles.text}>
+            Telefone = {userInfo.phone}
+          </Typography>
+        </>
+      );
+    }
+
+
   return (
     <Grid
       container
@@ -42,6 +65,9 @@ export default function Detail() {
           Detail {info.id}
         </Typography>
 
+        {message}
+        {userInfoJSX}
+        
         <Typography
           gutterBottom
           variant="h6"
@@ -49,7 +75,6 @@ export default function Detail() {
           onClick={onBackClicked}>
           Voltar
         </Typography>
-        {message}
       </Grid>
     </Grid>
   );
